@@ -17,7 +17,7 @@ class WebSocketImpl extends JavaScriptObject {
 		socket.onopen = function(e) {
 			peer.@com.google.gwt.websocket.client.WebSocket::handleOpenEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
 		}
-		socket.message = function(e) {
+		socket.onmessage = function(e) {
 			peer.@com.google.gwt.websocket.client.WebSocket::handleMessageEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
 		}
 		socket.onerror = function(e) {
@@ -25,7 +25,8 @@ class WebSocketImpl extends JavaScriptObject {
 		}
 		socket.onclose = function(e) {
 			peer.@com.google.gwt.websocket.client.WebSocket::handleCloseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
-		}			
+		}
+		return socket;
 	}-*/;
 
 	@UnsafeNativeLong
@@ -38,7 +39,7 @@ class WebSocketImpl extends JavaScriptObject {
 	}-*/;
 
 	public native final void send(String message) /*-{
-		this.send(content);
+		this.send(message);
 	}-*/;
 
 	public native final void close() /*-{
