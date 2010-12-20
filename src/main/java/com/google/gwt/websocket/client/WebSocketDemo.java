@@ -2,8 +2,16 @@ package com.google.gwt.websocket.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ErrorEvent;
 import com.google.gwt.event.dom.client.ErrorHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.websocket.client.event.CloseEvent;
 import com.google.gwt.websocket.client.event.CloseHandler;
 import com.google.gwt.websocket.client.event.MessageEvent;
@@ -11,21 +19,21 @@ import com.google.gwt.websocket.client.event.MessageHandler;
 import com.google.gwt.websocket.client.event.OpenEvent;
 import com.google.gwt.websocket.client.event.OpenHandler;
 
-public class WebSocketTest implements EntryPoint {
+public class WebSocketDemo implements EntryPoint {
 
 	public void onModuleLoad() {
 		final WebSocket socket = new WebSocket("ws://echo.websocket.org/");
+		final TextArea box = new TextArea();
 		socket.addOpenHandler(new OpenHandler() {
 			@Override
 			public void onOpen(OpenEvent event) {
-				GWT.log("Open: " + event);
-				socket.send("Hello!");
+				Window.alert("Open: " + event);
 			}
 		});
 		socket.addMessageHandler(new MessageHandler() {
 			@Override
 			public void onMessage(MessageEvent event) {
-				GWT.log("Message: data='" + event.getData() + "'");
+				box.setText(box.getValue() + "\n" + event.getData());
 			}
 		});
 		socket.addErrorHandler(new ErrorHandler() {
@@ -41,5 +49,21 @@ public class WebSocketTest implements EntryPoint {
 				GWT.log("Close: " + event);
 			}
 		});
+		final TextBox line = new TextBox();
+		Button send = new Button("SEND");
+		send.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				socket.send(line.getText());
+				line.setText("");
+			}
+		});
+		
+		HorizontalPanel lp = new HorizontalPanel();
+		lp.add(line);
+		lp.add(send);
+		RootPanel.get().add(box);
+		RootPanel.get().add(lp);
+		RootPanel.get().add(send);
 	}
 }
