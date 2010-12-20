@@ -20,116 +20,127 @@ import com.google.gwt.websocket.client.event.OpenEvent;
 import com.google.gwt.websocket.client.event.OpenHandler;
 
 public class WebSocket implements HasOpenHandlers, HasCloseHandlers,
-		HasErrorHandlers, HasMessageHandlers {
+    HasErrorHandlers, HasMessageHandlers {
 
-	public static final int CONNECTING = 0;
-	public static final int OPEN = 1;
-	public static final int CLOSING = 2;
-	public static final int CLOSED = 3;
+  public static final int CONNECTING = 0;
+  public static final int OPEN = 1;
+  public static final int CLOSING = 2;
+  public static final int CLOSED = 3;
 
-	private WebSocketImpl socket;
+  private WebSocketImpl socket;
 
-	protected WebSocket(String url) {
-		this.socket = WebSocketImpl.create(this, url);
-	}
-	
-	public String getProtocol() {
-		return socket.getProtocol();
-	}
-	
-	public int getReadyState() {
-		return socket.getReadyState();
-	}
-	
-	public long getBufferedAmount() {
-		return socket.getBufferedAmount();
-	}
+  public static native boolean available() /*-{
+    return !!$wnd.WebSocket;
+  }-*/;
 
-	public void send(String message) {
-		socket.send(message);
-	}
-	
-	public void close() {
-		socket.close();
-	}
+  /**
+   * Requests a new WebSocket connection to the specified URL. The connection
+   * is opened asynchronously. You must add an OpenListener immediately after
+   * (before the next browser event loop), in order to ensure no events are
+   * missed.
+   *
+   * @param url The websocket url to connect to, the protocol must be ws:// or wss://
+   */
+  public WebSocket(String url) {
+    this.socket = WebSocketImpl.create(this, url);
+  }
 
-	private EventBus eventBus;
+  public String getProtocol() {
+    return socket.getProtocol();
+  }
 
-	void handleOpenEvent(NativeEvent e) {
-		OpenEvent.fireNativeEvent(e, this);
-	}
+  public int getReadyState() {
+    return socket.getReadyState();
+  }
 
-	void handleMessageEvent(NativeEvent e) {
-		MessageEvent.fireNativeEvent(e, this);
-	}
+  public long getBufferedAmount() {
+    return (long) socket.getBufferedAmount();
+  }
 
-	void handleErrorEvent(NativeEvent e) {
-		ErrorEvent.fireNativeEvent(e, this);
-	}
+  public void send(String message) {
+    socket.send(message);
+  }
 
-	void handleCloseEvent(NativeEvent e) {
-		CloseEvent.fireNativeEvent(e, this);
-	}
-	
-	@Override
-	public HandlerRegistration addMessageHandler(MessageHandler handler) {
-		return ensureHandlers().addHandler(MessageEvent.getType(), handler);
-	}
+  public void close() {
+    socket.close();
+  }
 
-	@Override
-	public HandlerRegistration addErrorHandler(ErrorHandler handler) {
-		return ensureHandlers().addHandler(ErrorEvent.getType(), handler);
-	}
+  private EventBus eventBus;
 
-	@Override
-	public HandlerRegistration addCloseHandler(CloseHandler handler) {
-		return ensureHandlers().addHandler(CloseEvent.getType(), handler);
-	}
+  void handleOpenEvent(NativeEvent e) {
+    OpenEvent.fireNativeEvent(e, this);
+  }
 
-	@Override
-	public HandlerRegistration addOpenHandler(OpenHandler handler) {
-		return ensureHandlers().addHandler(OpenEvent.getType(), handler);
-	}
+  void handleMessageEvent(NativeEvent e) {
+    MessageEvent.fireNativeEvent(e, this);
+  }
 
-	/**
-	 * Adds this handler to the widget.
-	 * 
-	 * @param <H>
-	 *            the type of handler to add
-	 * @param type
-	 *            the event type
-	 * @param handler
-	 *            the handler
-	 * @return {@link HandlerRegistration} used to remove the handler
-	 */
-	public final <H extends EventHandler> HandlerRegistration addHandler(
-			final H handler, GwtEvent.Type<H> type) {
-		return ensureHandlers().addHandler(type, handler);
-	}
+  void handleErrorEvent(NativeEvent e) {
+    ErrorEvent.fireNativeEvent(e, this);
+  }
 
-	/**
-	 * Ensures the existence of the handler manager.
-	 * 
-	 * @return the handler manager
-	 * */
-	EventBus ensureHandlers() {
-		return eventBus == null ? eventBus = createEventBus()
-				: eventBus;
-	}
+  void handleCloseEvent(NativeEvent e) {
+    CloseEvent.fireNativeEvent(e, this);
+  }
 
-	/**
-	 * Creates the {@link EventBus} used by this Widget. You can override
-	 * this method to create a custom {@link EventBus}.
-	 * 
-	 * @return the {@link EventBus} you want to use
-	 */
-	protected EventBus createEventBus() {
-		return new SimpleEventBus();
-	}
+  @Override
+  public HandlerRegistration addMessageHandler(MessageHandler handler) {
+    return ensureHandlers().addHandler(MessageEvent.getType(), handler);
+  }
 
-	public void fireEvent(GwtEvent<?> event) {
-		if (eventBus != null) {
-			eventBus.fireEvent(event);
-		}
-	}
+  @Override
+  public HandlerRegistration addErrorHandler(ErrorHandler handler) {
+    return ensureHandlers().addHandler(ErrorEvent.getType(), handler);
+  }
+
+  @Override
+  public HandlerRegistration addCloseHandler(CloseHandler handler) {
+    return ensureHandlers().addHandler(CloseEvent.getType(), handler);
+  }
+
+  @Override
+  public HandlerRegistration addOpenHandler(OpenHandler handler) {
+    return ensureHandlers().addHandler(OpenEvent.getType(), handler);
+  }
+
+  /**
+   * Adds this handler to the widget.
+   *
+   * @param <H>
+   *    the type of handler to add
+   * @param type
+   *    the event type
+   * @param handler
+   *    the handler
+   * @return {@link HandlerRegistration} used to remove the handler
+   */
+  public final <H extends EventHandler> HandlerRegistration addHandler(
+    final H handler, GwtEvent.Type<H> type) {
+    return ensureHandlers().addHandler(type, handler);
+  }
+
+  /**
+   * Ensures the existence of the handler manager.
+   *
+   * @return the handler manager
+   */
+  EventBus ensureHandlers() {
+    return eventBus == null ? eventBus = createEventBus() : eventBus;
+  }
+
+  /**
+   * Creates the {@link EventBus} used by this Widget. You can override this
+   * method to create a custom {@link EventBus}.
+   *
+   * @return the {@link EventBus} you want to use
+   */
+  protected EventBus createEventBus() {
+    return new SimpleEventBus();
+  }
+
+  public void fireEvent(GwtEvent<?> event) {
+    if (eventBus != null) {
+      eventBus.fireEvent(event);
+    }
+  }
 }
