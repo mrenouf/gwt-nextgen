@@ -3,8 +3,16 @@ package com.google.gwt.webstorage.client;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
-final class WebStorage extends JavaScriptObject {
+public final class WebStorage extends JavaScriptObject {
   protected WebStorage() {}
+
+  private static native WebStorage getSessionStorage() /*-{
+    return $wnd.sessionStorage;
+  }-*/;
+
+  private static native WebStorage getLocalStorage() /*-{
+    return $wnd.localStorage;
+  }-*/;
 
   public native int getLength() /*-{
     return this.length;
@@ -13,7 +21,7 @@ final class WebStorage extends JavaScriptObject {
   public native void clear() /*-{
     this.clear();
   }-*/;
-  
+
   public native String getKey(int index) /*-{
     return this.getKey(index);
   }-*/;
@@ -37,7 +45,7 @@ final class WebStorage extends JavaScriptObject {
   public native Double getNumber(String key) /*-{
     return this.getItem(key);
   }-*/;
-  
+
   public native <T extends JavaScriptObject> void setItem(String key, T value) throws QuotaExceededError, ObjectNotSupportedError /*-{
     this.setItem(key, value);
   }-*/;
