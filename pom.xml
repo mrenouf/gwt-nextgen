@@ -8,6 +8,12 @@
   <name>gwt-nextgen</name>
   <description>GWT library for new and emerging browser APIs</description>
 
+  <scm>
+    <url>https://github.com/mrenouf/gwt-nextgen</url>
+    <connection>scm:git:git://github.com/mrenouf/gwt-nextgen.git</connection>
+    <developerConnection>scm:git:ssh:git@github.com:mrenouf/gwt-nextgen.git</developerConnection>
+  </scm>
+
   <properties>
     <gwt.version>2.1.0</gwt.version>
   </properties>
@@ -25,6 +31,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.2</version>
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
@@ -52,6 +59,14 @@
           <additionalClasspathElements>
             <additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
           </additionalClasspathElements>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.4</version>
+        <configuration>
+          <goals>install</goals>
         </configuration>
       </plugin>
     </plugins>
