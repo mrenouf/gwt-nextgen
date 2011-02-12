@@ -15,7 +15,7 @@
   </scm>
 
   <properties>
-    <gwt.version>2.1.0</gwt.version>
+    <gwt.version>2.1.1</gwt.version>
   </properties>
 
   <build>
@@ -31,7 +31,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.3.2</version>
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
@@ -41,25 +41,63 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
         <version>2.1.0-1</version>
-        <executions>    
+        <executions>
           <execution>
             <id>gwt-resources</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>resources</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>gwt-test-resources</id>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>resources</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.4.3</version>
-        <configuration>
-          <useSystemClassLoader>false</useSystemClassLoader>
-          <additionalClasspathElements>
-            <additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
-          </additionalClasspathElements>
-        </configuration>
+        <executions>
+          <execution>
+            <id>default-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>**/*Test</include>
+              </includes>
+              <excludes>
+                <exclude>**/client/**/*Test</exclude>
+              </excludes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>gwt-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>**/client/**/*Test.java</include>
+              </includes>
+              <useSystemClassLoader>false</useSystemClassLoader>
+              <additionalClasspathElements>
+                <additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
+                <additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
+              </additionalClasspathElements>
+              <argLine>-Dgwt.args="-war ${project.build.directory}/www-test -runStyle ExternalBrowser:chromium-browser"</argLine>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -92,6 +130,5 @@
       <version>4.8.2</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 </project>
