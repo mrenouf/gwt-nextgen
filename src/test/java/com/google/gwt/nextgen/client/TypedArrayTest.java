@@ -1,5 +1,6 @@
 package com.google.gwt.nextgen.client;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -55,9 +56,12 @@ public class TypedArrayTest extends GWTTestCase {
     for (int i=0; i<25; i++) {
       assertEquals(i, buffer.get(i));
     }
-    buffer.set(jsArray25, 23);
-    for (int i=0; i<25; i++) {
-      assertEquals(i+23, buffer.get(i));
+    buffer.set(jsArray25, 12);
+    for (int i=0; i<12; i++) {
+      assertEquals(i, buffer.get(i));
+    }
+    for (int i=0; i<13; i++) {
+      assertEquals(i, buffer.get(i+12));
     }
   }
 
@@ -72,9 +76,12 @@ public class TypedArrayTest extends GWTTestCase {
     for (int i=0; i<25; i++) {
       assertEquals(i, buffer.get(i));
     }
-    buffer.set(jsArray25, 23);
-    for (int i=0; i<25; i++) {
-      assertEquals(i+23, buffer.get(i));
+    buffer.set(jsArray25, 12);
+    for (int i=0; i<12; i++) {
+      assertEquals(i, buffer.get(i));
+    }
+    for (int i=0; i<13; i++) {
+      assertEquals(i, buffer.get(i+12));
     }
   }
 
@@ -89,9 +96,12 @@ public class TypedArrayTest extends GWTTestCase {
     for (int i=0; i<25; i++) {
       assertEquals(i, buffer.get(i));
     }
-    buffer.set(jsArray25, 23);
-    for (int i=0; i<25; i++) {
-      assertEquals(i+23, buffer.get(i));
+    buffer.set(jsArray25, 12);
+    for (int i=0; i<12; i++) {
+      assertEquals(i, buffer.get(i));
+    }
+    for (int i=0; i<13; i++) {
+      assertEquals(i, buffer.get(i+12));
     }
   }
 
@@ -106,9 +116,12 @@ public class TypedArrayTest extends GWTTestCase {
     for (int i=0; i<25; i++) {
       assertEquals(i, buffer.get(i));
     }
-    buffer.set(jsArray25, 23);
-    for (int i=0; i<25; i++) {
-      assertEquals(i+23, buffer.get(i));
+    buffer.set(jsArray25, 12);
+    for (int i=0; i<12; i++) {
+      assertEquals(i, buffer.get(i));
+    }
+    for (int i=0; i<13; i++) {
+      assertEquals(i, buffer.get(i+12));
     }
   }
 
@@ -123,9 +136,12 @@ public class TypedArrayTest extends GWTTestCase {
     for (int i=0; i<25; i++) {
       assertEquals(i, buffer.get(i));
     }
-    buffer.set(jsArray25, 23);
-    for (int i=0; i<25; i++) {
-      assertEquals(i+23, buffer.get(i));
+    buffer.set(jsArray25, 12);
+    for (int i=0; i<12; i++) {
+      assertEquals(i, buffer.get(i));
+    }
+    for (int i=0; i<13; i++) {
+      assertEquals(i, buffer.get(i+12));
     }
   }
 
@@ -140,9 +156,12 @@ public class TypedArrayTest extends GWTTestCase {
     for (int i=0; i<25; i++) {
       assertEquals(i, buffer.get(i));
     }
-    buffer.set(jsArray25, 23);
-    for (int i=0; i<25; i++) {
-      assertEquals(i+23, buffer.get(i));
+    buffer.set(jsArray25, 12);
+    for (int i=0; i<12; i++) {
+      assertEquals(i, buffer.get(i));
+    }
+    for (int i=0; i<13; i++) {
+      assertEquals(i, buffer.get(i+12));
     }
   }
 
@@ -157,13 +176,16 @@ public class TypedArrayTest extends GWTTestCase {
     for (int i=0; i<25; i++) {
       assertEquals(i, buffer.get(i));
     }
-    buffer.set(jsArray25, 23);
-    for (int i=0; i<25; i++) {
-      assertEquals(i+23, buffer.get(i));
+    buffer.set(jsArray25, 12);
+    for (int i=0; i<12; i++) {
+      assertEquals(i, buffer.get(i));
+    }
+    for (int i=0; i<13; i++) {
+      assertEquals(i, buffer.get(i+12));
     }
   }
 
-  @Test
+  @Test @Ignore("Not yet implemented in Chromium - http://code.google.com/p/chromium/issues/detail?id=67675")
   public void testFoat64Array() {
     Float64Array buffer = Float64Array.create(100);
     assertEquals(100, buffer.getLength());
@@ -174,9 +196,12 @@ public class TypedArrayTest extends GWTTestCase {
     for (int i=0; i<25; i++) {
       assertEquals(i, buffer.get(i));
     }
-    buffer.set(jsArray25, 23);
-    for (int i=0; i<25; i++) {
-      assertEquals(i+23, buffer.get(i));
+    buffer.set(jsArray25, 12);
+    for (int i=0; i<12; i++) {
+      assertEquals(i, buffer.get(i));
+    }
+    for (int i=0; i<13; i++) {
+      assertEquals(i, buffer.get(i+12));
     }
   }
 }
