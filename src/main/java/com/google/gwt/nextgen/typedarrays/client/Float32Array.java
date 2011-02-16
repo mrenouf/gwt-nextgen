@@ -113,7 +113,7 @@ public final class Float32Array extends TypedArray {
    * @return a float value
    */
   public native float get(double index) /*-{
-    this.get(index);
+    return this[index];
   }-*/;
 
   /**
@@ -122,7 +122,7 @@ public final class Float32Array extends TypedArray {
    * @param value a float value
    */
   public native void set(double index, float value) /*-{
-    this.set(index, value);
+    this[index] = value;
   }-*/;
 
   /**

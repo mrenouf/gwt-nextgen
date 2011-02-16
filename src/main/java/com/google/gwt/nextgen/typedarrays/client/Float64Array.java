@@ -113,7 +113,7 @@ public final class Float64Array extends TypedArray {
    * @return a double value
    */
   public native double get(double index) /*-{
-    this.get(index);
+    return this[index];
   }-*/;
 
   /**
@@ -122,7 +122,7 @@ public final class Float64Array extends TypedArray {
    * @param value a double value
    */
   public native void set(double index, double value) /*-{
-    this.set(index, value);
+    this[index] = value;
   }-*/;
 
   /**

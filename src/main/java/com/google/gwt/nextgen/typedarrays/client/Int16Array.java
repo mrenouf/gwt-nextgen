@@ -113,7 +113,7 @@ public final class Int16Array extends TypedArray {
    * return value A value in the range [-32768, 32767]
    */
   public native int get(double index) /*-{
-    this.get(index);
+    return this[index];
   }-*/;
 
   /**
@@ -122,7 +122,7 @@ public final class Int16Array extends TypedArray {
    * @param value A value in the range of [-32768, 32767]
    */
   public native void set(double index, int value) /*-{
-    this.set(index, value);
+    this[index] = value;
   }-*/;
 
   /**

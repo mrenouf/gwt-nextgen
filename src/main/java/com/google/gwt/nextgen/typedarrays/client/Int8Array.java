@@ -113,7 +113,7 @@ public final class Int8Array extends TypedArray {
    * return value A byte value in the range [-128,127]
    */
   public native int get(double index) /*-{
-    this.get(index);
+    return this[index];
   }-*/;
 
   /**
@@ -122,7 +122,7 @@ public final class Int8Array extends TypedArray {
    * @param value A byte value in the range [-128,127]
    */
   public native void set(double index, byte value) /*-{
-    this.set(index, value);
+    this[index] = value;
   }-*/;
 
   /**

@@ -113,7 +113,7 @@ public final class Uint32Array extends TypedArray {
    * return value An integer value in the range [0, 4294967295]
    */
   public native double get(double index) /*-{
-    this.get(index);
+    return this[index];
   }-*/;
 
   /**
@@ -122,7 +122,7 @@ public final class Uint32Array extends TypedArray {
    * @param value An integer value in the range [0, 4294967295]
    */
   public native void set(double index, double value) /*-{
-    this.set(index, value);
+    this[index] = value;
   }-*/;
 
   /**
