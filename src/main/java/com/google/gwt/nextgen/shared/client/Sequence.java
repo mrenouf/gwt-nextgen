@@ -1,4 +1,4 @@
-package com.google.gwt.shared.client;
+package com.google.gwt.nextgen.shared.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
