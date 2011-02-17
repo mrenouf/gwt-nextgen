@@ -3,10 +3,14 @@ gwt-nextgen is an attempt to expose all recent and emerging features being provi
 The functionality is grouped into Modules within a specific API or area of functionality:
 
 Canvas
-Media
 Geolocation
-HTML5 input elements
+Media
+New HTML elements
+TypedArrays
+WebMessaging*
 WebSocket
 WebStorage
 
-Many of these APIs do not yet work on a majority of web browsers. The goal of this library is to expose the native functionality to allow GWT developers to prototype the next generation of applications quickly using recently available APIs. No emulation modes or fallback mechanisms are present however, where possible feature detection is provided.
+(*): Unfinished/untested
+
+Many of these APIs do not yet work on a majority of web browsers. The goal of this library is to expose the native functionality to allow GWT developers to prototype the next generation of applications quickly using recently available APIs. No emulation modes or fallback mechanisms are present however, where possible feature detection should be provided provided.
